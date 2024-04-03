@@ -6,7 +6,7 @@
 /*   By: soksak <soksak@42istanbul.com.tr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 20:53:41 by soksak            #+#    #+#             */
-/*   Updated: 2024/04/02 01:49:02 by soksak           ###   ########.fr       */
+/*   Updated: 2024/04/03 03:11:53 by soksak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,19 @@ int numeric_control(char **argv)
 
 long long	timestamp(void)
 {
-	struct timeval	tv;
+	struct timeval	time;
 
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+	if (gettimeofday(&time, NULL) == -1)
+		write(2, "gettimeofday() error\n", 22);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
 int	ft_sleep(t_philo *philo, long long sleeptime)
 {
-	long long	time;
+	long long	loop;
 
-	time = timestamp() + sleeptime;
-	while (time > timestamp())
+	loop = timestamp() + sleeptime;
+	while (loop > timestamp())
 	{
 		usleep(200);
 		if (is_dead(philo) == 1)
@@ -123,7 +124,7 @@ int	sleep_and_think(t_philo *philo)
 {
 	if (ft_print_status(philo, "is sleeping"))
 		return (1);
-	if (ft_sleep(philo, philo->p_data->t_start))
+	if (ft_sleep(philo, philo->p_data->t_sleep))
 		return (1);
 	if (ft_print_status(philo, "is thinking"))
 		return (1);

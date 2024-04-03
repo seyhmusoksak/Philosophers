@@ -6,7 +6,7 @@
 /*   By: soksak <soksak@42istanbul.com.tr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 00:21:36 by soksak            #+#    #+#             */
-/*   Updated: 2024/04/02 02:01:03 by soksak           ###   ########.fr       */
+/*   Updated: 2024/04/03 03:00:45 by soksak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	*philo_life(void *philo)
 	t_philo *tmp_philo;
 
 	tmp_philo = (t_philo *)philo;
+	tmp_philo->last_eat = timestamp();
 	while (1)
 	{
 		pthread_mutex_lock(&tmp_philo->p_data->meallock);
@@ -134,7 +135,8 @@ void	start_simulation(t_data *data)
 	data->t_start = timestamp();
 	while (i < data->n_philo)
 	{
-		pthread_create(&data->philo[i].thread, NULL, &philo_life, &data->philo[i]);
+		pthread_create(&data->philo[i].thread, NULL,
+			&philo_life, &data->philo[i]);
 		i++;
 		usleep(50);
 	}
