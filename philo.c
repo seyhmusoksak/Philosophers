@@ -6,7 +6,7 @@
 /*   By: soksak <soksak@42istanbul.com.tr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 23:11:03 by soksak            #+#    #+#             */
-/*   Updated: 2024/04/03 02:36:01 by soksak           ###   ########.fr       */
+/*   Updated: 2024/04/03 04:40:07 by soksak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	init_philo(t_data *data)
 		i++;
 	}
 }
+
 static int	init_data(t_data *data, int argc, char **argv)
 {
 	int	i;
@@ -59,8 +60,7 @@ static int	init_data(t_data *data, int argc, char **argv)
 	return (0);
 }
 
-
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_data	*data;
 	int		error_code;
@@ -80,4 +80,5 @@ int main(int argc, char **argv)
 		return (5);
 	init_philo(data);
 	start_simulation(data);
+	free_data(data);
 }

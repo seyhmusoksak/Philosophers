@@ -6,7 +6,7 @@
 /*   By: soksak <soksak@42istanbul.com.tr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 23:09:04 by soksak            #+#    #+#             */
-/*   Updated: 2024/04/03 02:23:25 by soksak           ###   ########.fr       */
+/*   Updated: 2024/04/03 04:39:01 by soksak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,18 @@ typedef struct s_data
 	t_philo			*philo;
 }					t_data;
 
-int 	arg_control(int argc, char **argv);
-int		my_atoi(char *str);
-int 	numeric_control(char **argv);
-void	start_simulation(t_data *data);
+int			arg_control(int argc, char **argv);
+int			my_atoi(char *str);
+int			numeric_control(char **argv);
+void		start_simulation(t_data *data);
 long long	timestamp(void);
-int	ft_sleep(t_philo *philo, long long sleeptime);
-int	ft_print_status(t_philo *philo, char *str);
-int	sleep_and_think(t_philo *philo);
-int	is_dead(t_philo *philo);
-int eat(t_philo *philo);
-void	*philo_life(void *philo);
-void	unlock_forks(t_data *data);
+int			ft_sleep(t_philo *philo, long long sleeptime);
+int			ft_print_status(t_philo *philo, char *str);
+int			sleep_and_think(t_philo *philo);
+int			is_dead(t_philo *philo);
+int			eat(t_philo *philo);
+void		*philo_life(void *philo);
+void		unlock_forks(t_data *data);
+void		free_data(t_data *data);
 
 #endif

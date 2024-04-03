@@ -6,7 +6,7 @@
 /*   By: soksak <soksak@42istanbul.com.tr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 20:53:41 by soksak            #+#    #+#             */
-/*   Updated: 2024/04/03 03:11:53 by soksak           ###   ########.fr       */
+/*   Updated: 2024/04/03 04:41:25 by soksak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ int	my_atoi(char *str)
 	return (n * sign);
 }
 
-
-int arg_control(int argc, char **argv)
+int	arg_control(int argc, char **argv)
 {
 	int	i;
+
 	i = 0;
 	if (argc == 5 || argc == 6)
 	{
-		if(numeric_control(argv))
+		if (numeric_control(argv))
 			return (1);
 		while (argv[i])
 		{
@@ -64,7 +64,7 @@ int arg_control(int argc, char **argv)
 	return (0);
 }
 
-int numeric_control(char **argv)
+int	numeric_control(char **argv)
 {
 	int	i;
 	int	j;
@@ -93,20 +93,6 @@ long long	timestamp(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-int	ft_sleep(t_philo *philo, long long sleeptime)
-{
-	long long	loop;
-
-	loop = timestamp() + sleeptime;
-	while (loop > timestamp())
-	{
-		usleep(200);
-		if (is_dead(philo) == 1)
-			return (1);
-	}
-	return (0);
-}
-
 int	ft_print_status(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(&philo->p_data->printmutex);
@@ -115,30 +101,8 @@ int	ft_print_status(t_philo *philo, char *str)
 		pthread_mutex_unlock(&philo->p_data->printmutex);
 		return (1);
 	}
-	printf("%llu %d %s\n", (timestamp() - philo->p_data->t_start), philo->philo_id, str);
+	printf("%llu %d %s\n", (timestamp() - philo->p_data->t_start),
+		philo->philo_id, str);
 	pthread_mutex_unlock(&philo->p_data->printmutex);
 	return (0);
-}
-
-int	sleep_and_think(t_philo *philo)
-{
-	if (ft_print_status(philo, "is sleeping"))
-		return (1);
-	if (ft_sleep(philo, philo->p_data->t_sleep))
-		return (1);
-	if (ft_print_status(philo, "is thinking"))
-		return (1);
-	return(0);
-}
-
-void	unlock_forks(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->n_philo)
-	{
-		pthread_mutex_unlock(&data->forks[i]);
-		i++;
-	}
 }
